@@ -9,6 +9,7 @@ public class Demo {
         i = scanner.nextInt();
         j = scanner.nextInt();
         s = scanner.nextLine();
+        scanner.close();
         System.out.println(s + " " + i + " " + j);
     }
 }
