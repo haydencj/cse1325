@@ -73,5 +73,6 @@ public class RPN {
             }
             printStack();
         }
+        in.close();
     }
 }
