@@ -11,21 +11,16 @@ public class Clock {
 
     //Methods
     public Clock add(int seconds) {
-        this.seconds+=seconds;
+        Clock addClock = new Clock(this.hours, this.minutes, this.seconds + seconds);
         rationalize();
-        return new Clock(this.hours, this.minutes, this.seconds);
-
-        // Clock addClock = new Clock(this.hours, this.minutes, this.seconds + seconds);
-        // rationalize();
-        // return addClock;
+        return addClock;
     }
 
     public Clock add(Clock clock) {
-        clock.seconds+=this.seconds;
-        clock.minutes+=this.minutes;
-        clock.hours+=this.hours;
+        Clock addClock = new Clock(this.hours+clock.hours, this.minutes+clock.minutes, 
+                                this.seconds + clock.seconds);
         rationalize();
-        return new Clock(clock.hours, clock.minutes, clock.seconds);
+        return addClock;
     }
 
     private String twoDigit(int i) {

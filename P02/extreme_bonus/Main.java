@@ -18,9 +18,10 @@ public class Main {
         int secondsToTic = input.nextInt();
     
         Clock clock2 = clock1.add(secondsToTic);
-
+        Clock clock3 = clock1.add(clock2);
         System.out.println(clock1);
         System.out.println(clock2);
+        System.out.println(clock3);
 
         input.close();
     }
