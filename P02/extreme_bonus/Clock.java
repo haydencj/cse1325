@@ -12,14 +12,12 @@ public class Clock {
     //Methods
     public Clock add(int seconds) {
         Clock addClock = new Clock(this.hours, this.minutes, this.seconds + seconds);
-        rationalize();
         return addClock;
     }
 
     public Clock add(Clock clock) {
         Clock addClock = new Clock(this.hours+clock.hours, this.minutes+clock.minutes, 
-                                this.seconds + clock.seconds);
-        rationalize();
+                                   this.seconds + clock.seconds);
         return addClock;
     }
 
