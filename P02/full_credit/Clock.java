@@ -10,7 +10,7 @@ public class Clock {
 
     //Method
     private String twoDigit(int i) {
-        String res = (i<10) ? String.format("%02d", i) : String.valueOf(i);
+        String res = (i<10) ? String.format("%02d", i) : String.valueOf(i); // 0 + "i" also works
         return res;
     }
 
