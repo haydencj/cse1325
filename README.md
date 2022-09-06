@@ -1,2 +1,2 @@
 # cse1325
-CSE 1325 Object Oriented Programming- Fall 2022
+Fall 2022 - Object Oriented Programming
