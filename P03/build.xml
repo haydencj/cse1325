@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Demo" default="build">
+<project name="Demo.java" default="build">
   <presetdef name="javac">
     <javac includeantruntime="false" />
   </presetdef>

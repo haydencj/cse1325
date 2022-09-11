@@ -1,4 +1,3 @@
-package P03;
 import java.util.Stack;
 import java.util.Collections;
 
@@ -27,7 +26,7 @@ public class Deck {
         if(deck.empty() == true ) throw new DeckEmpty("Deck is empty.");
         else return deck.pop();
     }
-    
+
     public void shuffle() {
         Collections.shuffle(deck);
     }

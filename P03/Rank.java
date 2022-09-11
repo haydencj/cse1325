@@ -1,5 +1,3 @@
-package P03;
-
 public class Rank {
     //Constructor
     public Rank(int rank) {

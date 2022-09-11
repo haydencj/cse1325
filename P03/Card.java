@@ -1,5 +1,3 @@
-package P03;
-
 public class Card {
     //Constructor
     public Card(Rank rank, Suit suit) {
