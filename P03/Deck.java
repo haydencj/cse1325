@@ -1,6 +1,6 @@
 package P03;
 import java.util.Stack;
-import java.util.Collections.shuffle;
+import java.util.Collections;
 
 public class Deck {
     //Constructor
@@ -17,16 +17,19 @@ public class Deck {
         }
     }
 
-    // public class Exception DeckEmpty() {
-
-    // }
-    //Methods
-    public void shuffle() {
-
+    public class DeckEmpty extends IndexOutOfBoundsException {
+        public DeckEmpty(String errorMessage) {
+            super(errorMessage);
+        }
     }
-
+    //Methods
     public Card deal() {
-
+        if(deck.empty() == true ) throw new DeckEmpty("Deck is empty.");
+        else return deck.pop();
+    }
+    
+    public void shuffle() {
+        Collections.shuffle(deck);
     }
 
     public boolean isEmpty() {
