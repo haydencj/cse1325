@@ -6,7 +6,7 @@ public class Rank {
 
     @Override
     public String toString() {
-        return String.valueOf(rank);
+        return String.valueOf(rank); // "" + rank;
     }
 
     //Fields. Static fields are intialized in-line, so they aren't in the constructor.

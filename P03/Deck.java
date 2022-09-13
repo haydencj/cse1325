@@ -36,5 +36,6 @@ public class Deck {
         else return false;
     }
     //Fields
-    private Stack<Card> deck;
+    private Stack<Card> deck; 
+    //private Stack<Card> deck = new Stack<>();
 }
