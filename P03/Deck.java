@@ -4,7 +4,7 @@ import java.util.Collections;
 public class Deck {
     //Constructor
     public Deck() {
-        this.deck = new Stack<Card>();
+        //this.deck = new Stack<Card>();
 
         for(Suit suit: Suit.values()) {
             for(int i = Rank.MIN; i<=Rank.MAX; i++) {
@@ -36,6 +36,6 @@ public class Deck {
         else return false;
     }
     //Fields
-    private Stack<Card> deck; 
-    //private Stack<Card> deck = new Stack<>();
+    //private Stack<Card> deck; 
+    private Stack<Card> deck = new Stack<>();
 }
