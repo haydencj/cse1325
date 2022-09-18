@@ -29,7 +29,7 @@ public class TravelCost {
         double miles = input.nextDouble();
 
         for(Vehicle i : vehicles) {
-            System.out.printf("$%6.2f range(%.0f) %s\n", i.dollarsToTravel(miles), i.range(), i);
+            System.out.printf("$%6.2f (range %.0f) %s\n", i.dollarsToTravel(miles), i.range(), i);
         }
 
         input.close();
