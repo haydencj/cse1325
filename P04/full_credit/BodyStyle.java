@@ -1,5 +1,1 @@
-package P04.full_credit;
-
-public class BodyStyle {
-    
-}
+public enum BodyStyle { Sedan, Hatchback, Minivan, Truck, Crossover, SUV; }

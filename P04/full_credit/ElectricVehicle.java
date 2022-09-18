@@ -1,5 +1,27 @@
-package P04.full_credit;
+public class ElectricVehicle extends Vehicle {
+    public ElectricVehicle(int year, String make, String model, BodyStyle bodyStyle, double whPerMile, double kwhInBattery) {
+        super(year, make, model, bodyStyle);
+        this.whPerMile = whPerMile;
+        this.kwhInBattery = kwhInBattery; 
+    }
 
-public class ElectricVehicle {
-    
+    @Override
+    public double range() {
+        return kwhInBattery / (whPerMile/1000);
+    }
+
+    @Override
+    public double fuelConsumed(double miles) {
+        if((miles * (whPerMile/1000)) > kwhInBattery) throw new ArithmeticException("Consumed more energy than available in battery.");
+        return miles*(whPerMile/1000);
+    }
+
+    @Override
+    public double dollarsToTravel(double miles) {
+        return fuelConsumed(miles) * (centsPerKwHOfElectricity/100);
+    }
+
+    public static double centsPerKwHOfElectricity = Double.NaN;
+    private double whPerMile;
+    private double kwhInBattery;
 }
