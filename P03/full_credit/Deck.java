@@ -17,8 +17,8 @@ public class Deck {
     }
 
     public class DeckEmpty extends IndexOutOfBoundsException {
-        public DeckEmpty(String errorMessage) {
-            super(errorMessage);
+        public DeckEmpty(String errorMessage) { //optional
+            super(errorMessage); //optional
         }
     }
     //Methods
