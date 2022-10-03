@@ -17,4 +17,4 @@ public class MixIn{
 
     private MixInFlavor flavor;
     private MixInAmount amount;
-}
+}s 
