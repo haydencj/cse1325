@@ -11,22 +11,22 @@ public class Scoop{
 
     @Override
     public String toString(){
-        if(mixins.isEmpty() == false){
-            if(mixins.size()==1){
-                return flavor.name() + "with" + mixins;
-            }
-
-            else{ //i.e. more than one mix in
-                String result = "";
-                for(var mixin : mixins) {
-                    result += mixin + ", ";
-                }
-                return result;
-            }
-
+        if(mixins.isEmpty() == true){
+            return flavor.name();
         }
 
-        else return flavor.name();
+        else if(mixins.size()==1){
+            return flavor.name() + "with" + mixins;
+        }
+
+        else{ //i.e. more than one mix in
+            String result = mixins.get(0).toString();
+            for(int i=1; i<mixins.size(); i++){
+                result += ", " + mixins.get(i);
+            }
+
+            return flavor.name() + " with " + result;
+        }
     }
 
     private IceCreamFlavor flavor;
