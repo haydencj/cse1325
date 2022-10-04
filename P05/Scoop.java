@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Scoop{
     public Scoop(IceCreamFlavor flavor){
         this.flavor = flavor;
+        this.mixins = new ArrayList<>();
     }
 
     public void addMixIn(MixIn mixin){
@@ -30,5 +31,5 @@ public class Scoop{
     }
 
     private IceCreamFlavor flavor;
-    private ArrayList<MixIn> mixins = new ArrayList<MixIn>();
+    private ArrayList<MixIn> mixins;
 }
