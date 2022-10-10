@@ -1,4 +1,9 @@
+package emporium;
 import java.util.ArrayList;
+
+import product.IceCreamFlavor;
+import product.MixInFlavor;
+import product.Scoop;
 
 public class Emporium {
     public void addMixInFlavor(MixInFlavor flavor) {

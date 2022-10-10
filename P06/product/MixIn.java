@@ -1,3 +1,4 @@
+package product;
 public class MixIn{
     public MixIn(MixInFlavor flavor, MixInAmount amount){
         this.flavor = flavor;
