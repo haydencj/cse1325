@@ -19,11 +19,15 @@ public class Emporium {
     }
 
     public Object[] mixInFlavors() {
-        
+        return mixInFlavors.toArray();
     }
 
     public Object[] iceCreamFlavors() {
+        return iceCreamFlavors.toArray();
+    }
 
+    public Object[] scoops() {
+        return scoops.toArray();
     }
 
     private ArrayList<MixInFlavor> mixInFlavors = new ArrayList<>();
