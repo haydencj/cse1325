@@ -3,7 +3,19 @@ import emporium.Emporium;
 import product.*;
 import java.awt.*;
 import javax.swing.*;
+
 import java.io.*;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MainWin extends JFrame {
     private Emporium emporium = new Emporium();
@@ -14,6 +26,7 @@ public class MainWin extends JFrame {
         super(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800,600);
+        filename = new File("untitled.mice");
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -136,15 +149,47 @@ public class MainWin extends JFrame {
     }
 
     public void onOpenClick(){ //open to select a filename via a FileChooser dialog and then create a new Emporium from it, changing the current filename if successful.
+        final JFileChooser fc = new JFileChooser(filename); //create file chooser dialog
+        FileFilter miceFiles = new FileNameExtensionFilter("MICE files", "mice"); 
+        fc.addChoosableFileFilter(miceFiles); //add "MICE file" filter
+        fc.setFileFilter(miceFiles); //show mice files only by default
 
+        int result = fc.showOpenDialog(this);        // Run dialog, return button clicked
+        if (result == JFileChooser.APPROVE_OPTION) { // Also CANCEL_OPTION and ERROR_OPTION
+            filename = fc.getSelectedFile();        // Obtain the selected File object
+            
+            try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+                emporium = new Emporium(br);                   
+                view(Screen.SCOOPS);                         // Update the user interface
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Unable to open " + filename + '\n' + e, 
+                    "Failed", JOptionPane.ERROR_MESSAGE); 
+             }
+        }
     }
 
     public void onSaveClick(){ //save to write all data to the current filename.
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            emporium.save(bw);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to open " + filename + '\n' + e,
+                "Failed", JOptionPane.ERROR_MESSAGE); 
+        }
     }
 
     public void onSaveAsClick(){ //save as to change the current filename via filechooser dialog and then chain to save.
-
+        final JFileChooser fc = new JFileChooser(filename);  // Create a file chooser dialog
+        FileFilter miceFiles = new FileNameExtensionFilter("MICE files", "mice");
+        fc.addChoosableFileFilter(miceFiles);         // Add "Nim file" filter
+        fc.setFileFilter(miceFiles);                  // Show Nim files only by default
+        
+        int result = fc.showSaveDialog(this);        // Run dialog, return button clicked
+        if (result == JFileChooser.APPROVE_OPTION) { // Also CANCEL_OPTION and ERROR_OPTION
+            filename = fc.getSelectedFile();         // Obtain the selected File object
+            if(!filename.getAbsolutePath().endsWith(".mice"))  // Ensure it ends with ".nim"
+                filename = new File(filename.getAbsolutePath() + ".mice");
+            onSaveClick();                       // Delegate to Save method
+        }
     }
 
     public void onQuitClick(){

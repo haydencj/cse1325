@@ -1,11 +1,26 @@
 package emporium;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 import product.IceCreamFlavor;
 import product.MixInFlavor;
 import product.Scoop;
 
 public class Emporium {
+    public Emporium() {
+        this.mixInFlavors = new ArrayList<>();
+        this.mixInFlavors = new ArrayList<>();
+        this.mixInFlavors = new ArrayList<>();
+    }
+
+    public Emporium(BufferedReader in) {
+        this();
+    }
+
+    public void save(BufferedWriter out) {
+
+    }
     public void addMixInFlavor(MixInFlavor flavor) {
         mixInFlavors.add(flavor);
     }
@@ -30,7 +45,7 @@ public class Emporium {
         return scoops.toArray();
     }
 
-    private ArrayList<MixInFlavor> mixInFlavors = new ArrayList<>();
-    private ArrayList<IceCreamFlavor> iceCreamFlavors = new ArrayList<>();
-    private ArrayList<Scoop> scoops = new ArrayList<>();
+    private ArrayList<MixInFlavor> mixInFlavors;
+    private ArrayList<IceCreamFlavor> iceCreamFlavors;
+    private ArrayList<Scoop> scoops;
 }
