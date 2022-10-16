@@ -3,10 +3,12 @@ import emporium.Emporium;
 import product.*;
 import java.awt.*;
 import javax.swing.*;
+import java.io.*;
 
 public class MainWin extends JFrame {
     private Emporium emporium = new Emporium();
     private JLabel display;
+    private File filename;
 
     public MainWin(String title){
         super(title);
@@ -63,7 +65,86 @@ public class MainWin extends JFrame {
 
         display = new JLabel();
         add(display, BorderLayout.CENTER);
+
+        //Toolbar
+        JToolBar toolbar = new JToolBar("MICE controls");
+        
+        //first button group
+        JButton saveButton = new JButton("SAVE");
+            saveButton.setActionCommand("Save");
+            saveButton.setToolTipText("Save");
+            toolbar.add(saveButton);
+            //actionlistener
+
+        JButton saveAsButton = new JButton("SAVEAS");
+            saveAsButton.setActionCommand("Save As");
+            saveAsButton.setToolTipText("Save As");
+            toolbar.add(saveAsButton);
+            //actionlistener
+
+        JButton openButton = new JButton("OPEN");
+            openButton.setActionCommand("Open file");
+            openButton.setToolTipText("Open file");
+            toolbar.add(openButton);
+            //actionlistener
+
+        toolbar.add(Box.createHorizontalStrut(25));
+
+        //second button group
+        JButton onCreateICButton = new JButton("CIC");
+            onCreateICButton.setActionCommand("Create ice cream");
+            onCreateICButton.setToolTipText("Create ice cream");
+            toolbar.add(onCreateICButton);
+            onCreateICButton.addActionListener(event -> onCreateIceCreamFlavorClick());
+
+        JButton onCreateMXButton = new JButton("CMX");
+            onCreateMXButton.setActionCommand("Create mix in");
+            onCreateMXButton.setToolTipText("Create mix in");
+            toolbar.add(onCreateMXButton);
+            onCreateMXButton.addActionListener(event -> onCreateMixInFlavorClick());
+
+        JButton onCreateScpButton = new JButton("CSCP");
+            onCreateScpButton.setActionCommand("Create scoop");
+            onCreateScpButton.setToolTipText("Create scoop");
+            toolbar.add(onCreateScpButton);
+            onCreateScpButton.addActionListener(event -> onCreateScoopClick());
+
+        toolbar.add(Box.createHorizontalStrut(25));
+
+        //third button group
+        JButton onViewICButton = new JButton("VIC");
+            onViewICButton.setActionCommand("View ice cream");
+            onViewICButton.setToolTipText("View ice cream");
+            toolbar.add(onViewICButton);
+            onViewICButton.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
+        
+        JButton onViewMXButton = new JButton("VMX");
+            onViewMXButton.setActionCommand("View mix in");
+            onViewMXButton.setToolTipText("View mix in");
+            toolbar.add(onViewMXButton);
+            onViewMXButton.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
+
+        JButton onViewScpButton = new JButton("VSCP");
+            onViewScpButton.setActionCommand("View scoop");
+            onViewScpButton.setToolTipText("View scoop");
+            toolbar.add(onViewScpButton);
+            onViewScpButton.addActionListener(event -> view(Screen.SCOOPS));
+
+
+        getContentPane().add(toolbar, BorderLayout.PAGE_START);
         setVisible(true);
+    }
+
+    public void onOpenClick(){ //open to select a filename via a FileChooser dialog and then create a new Emporium from it, changing the current filename if successful.
+
+    }
+
+    public void onSaveClick(){ //save to write all data to the current filename.
+
+    }
+
+    public void onSaveAsClick(){ //save as to change the current filename via filechooser dialog and then chain to save.
+
     }
 
     public void onQuitClick(){
