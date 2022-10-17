@@ -180,13 +180,13 @@ public class MainWin extends JFrame {
     public void onSaveAsClick(){ //save as to change the current filename via filechooser dialog and then chain to save.
         final JFileChooser fc = new JFileChooser(filename);  // Create a file chooser dialog
         FileFilter miceFiles = new FileNameExtensionFilter("MICE files", "mice");
-        fc.addChoosableFileFilter(miceFiles);         // Add "Nim file" filter
-        fc.setFileFilter(miceFiles);                  // Show Nim files only by default
+        fc.addChoosableFileFilter(miceFiles);
+        fc.setFileFilter(miceFiles);  
         
         int result = fc.showSaveDialog(this);        // Run dialog, return button clicked
         if (result == JFileChooser.APPROVE_OPTION) { // Also CANCEL_OPTION and ERROR_OPTION
             filename = fc.getSelectedFile();         // Obtain the selected File object
-            if(!filename.getAbsolutePath().endsWith(".mice"))  // Ensure it ends with ".nim"
+            if(!filename.getAbsolutePath().endsWith(".mice"))  
                 filename = new File(filename.getAbsolutePath() + ".mice");
             onSaveClick();                       // Delegate to Save method
         }
