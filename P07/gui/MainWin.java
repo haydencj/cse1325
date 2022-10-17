@@ -3,10 +3,6 @@ import emporium.Emporium;
 import product.*;
 import java.awt.*;
 import javax.swing.*;
-
-import java.io.*;
-
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -83,40 +79,46 @@ public class MainWin extends JFrame {
         JToolBar toolbar = new JToolBar("MICE controls");
         
         //first button group
-        JButton saveButton = new JButton("SAVE");
+        JButton saveButton = new JButton();
+            saveButton.setIcon(new ImageIcon("images/save.png"));
             saveButton.setActionCommand("Save");
             saveButton.setToolTipText("Save");
             toolbar.add(saveButton);
-            //actionlistener
+            saveButton.addActionListener(event -> onSaveClick());
 
-        JButton saveAsButton = new JButton("SAVEAS");
+        JButton saveAsButton = new JButton();
+            saveAsButton.setIcon(new ImageIcon("images/saveas.png"));
             saveAsButton.setActionCommand("Save As");
             saveAsButton.setToolTipText("Save As");
             toolbar.add(saveAsButton);
-            //actionlistener
+            saveButton.addActionListener(event -> onSaveAsClick());
 
-        JButton openButton = new JButton("OPEN");
+        JButton openButton = new JButton();
+            openButton.setIcon(new ImageIcon("images/open.png"));
             openButton.setActionCommand("Open file");
             openButton.setToolTipText("Open file");
             toolbar.add(openButton);
-            //actionlistener
+            saveButton.addActionListener(event -> onOpenClick());
 
         toolbar.add(Box.createHorizontalStrut(25));
 
         //second button group
-        JButton onCreateICButton = new JButton("CIC");
+        JButton onCreateICButton = new JButton();
+            onCreateICButton.setIcon(new ImageIcon("images/ice-cream.png"));
             onCreateICButton.setActionCommand("Create ice cream");
             onCreateICButton.setToolTipText("Create ice cream");
             toolbar.add(onCreateICButton);
             onCreateICButton.addActionListener(event -> onCreateIceCreamFlavorClick());
 
-        JButton onCreateMXButton = new JButton("CMX");
+        JButton onCreateMXButton = new JButton();
+            onCreateMXButton.setIcon(new ImageIcon("images/sprinkles.png"));
             onCreateMXButton.setActionCommand("Create mix in");
             onCreateMXButton.setToolTipText("Create mix in");
             toolbar.add(onCreateMXButton);
             onCreateMXButton.addActionListener(event -> onCreateMixInFlavorClick());
 
-        JButton onCreateScpButton = new JButton("CSCP");
+        JButton onCreateScpButton = new JButton();
+            onCreateScpButton.setIcon(new ImageIcon("images/scoop.png"));
             onCreateScpButton.setActionCommand("Create scoop");
             onCreateScpButton.setToolTipText("Create scoop");
             toolbar.add(onCreateScpButton);
@@ -125,19 +127,22 @@ public class MainWin extends JFrame {
         toolbar.add(Box.createHorizontalStrut(25));
 
         //third button group
-        JButton onViewICButton = new JButton("VIC");
+        JButton onViewICButton = new JButton();
+            onViewICButton.setIcon(new ImageIcon("images/ice-cream-cone-color.png"));
             onViewICButton.setActionCommand("View ice cream");
             onViewICButton.setToolTipText("View ice cream");
             toolbar.add(onViewICButton);
             onViewICButton.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
         
-        JButton onViewMXButton = new JButton("VMX");
+        JButton onViewMXButton = new JButton();
+            onViewMXButton.setIcon(new ImageIcon("images/sprinkles-color.png"));
             onViewMXButton.setActionCommand("View mix in");
             onViewMXButton.setToolTipText("View mix in");
             toolbar.add(onViewMXButton);
             onViewMXButton.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
 
-        JButton onViewScpButton = new JButton("VSCP");
+        JButton onViewScpButton = new JButton();
+            onViewScpButton.setIcon(new ImageIcon("images/scoop-color.png"));
             onViewScpButton.setActionCommand("View scoop");
             onViewScpButton.setToolTipText("View scoop");
             toolbar.add(onViewScpButton);
@@ -247,24 +252,38 @@ public class MainWin extends JFrame {
 
     public void onAboutClick(){
         JDialog about = new JDialog();
-        about.setLayout(new FlowLayout());
+        about.setLayout(new BoxLayout(about.getContentPane(), BoxLayout.PAGE_AXIS));
         about.setTitle("Mavs Ice Cream Emporium");
+
+        JLabel logo = new JLabel(new ImageIcon("image/mice-logo.png"));
+        about.add(logo);
 
         JLabel title = new JLabel("<html>"
         + "<p><font size=+4>MICE</font></p>"
-        + "</html>");
+        + "</html>", JLabel.CENTER);
         about.add(title);
 
         JLabel info = new JLabel("<html>"
             + "<p>Version 0.2</p>"
-            + "</html>");
+            + "Icons and logo created by Freepik - Flaticon"
+            + "<p>https://www.flaticon.com/free-icons/save</p>"
+            + "<p>https://www.flaticon.com/free-icons/open-folder</p>"
+            + "<p>https://www.flaticon.com/free-icons/ice-cream</p>"
+            + "<p>https://www.flaticon.com/free-icons/sprinkles</p>" 
+            + "<p>https://www.flaticon.com/free-icons/scoop</p>"
+
+            + "</html>", JLabel.CENTER);
         about.add(info);
 
+        JPanel panel = new JPanel();
         JButton ok = new JButton("OK");
         ok.addActionListener(event -> about.setVisible(false));
-        about.add(ok, BorderLayout.PAGE_END);
-        
-        about.setSize(200,140);
+        panel.add(ok);
+        about.add(panel);
+
+        about.add(Box.createVerticalStrut(10));
+
+        about.pack();
         about.setVisible(true);
     }
 
