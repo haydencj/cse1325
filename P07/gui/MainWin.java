@@ -1,10 +1,23 @@
 package gui;
+
+/***************************************************************************************
+*    Title: MainWin
+*    Author: George Rice
+*    Date: 10/16/2022
+*    Code version: 1.0
+*    Availability: https://github.com/prof-rice/cse1325-prof/tree/main/P06/gui
+*
+***************************************************************************************/
+
 import emporium.Emporium;
 import product.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -251,38 +264,47 @@ public class MainWin extends JFrame {
     }
 
     public void onAboutClick(){
-        JDialog about = new JDialog();
+        JDialog about = new JDialog(this, "Mavs Ice Cream Emporium");
         about.setLayout(new BoxLayout(about.getContentPane(), BoxLayout.PAGE_AXIS));
-        about.setTitle("Mavs Ice Cream Emporium");
-
-        JLabel logo = new JLabel(new ImageIcon("image/mice-logo.png"));
-        about.add(logo);
-
+              
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("images/mice-logo.png"));
+            JLabel logo = new JLabel(new ImageIcon(myPicture));
+            JPanel canvas = new Canvas();
+            about.add(canvas);
+            about.add(logo);
+        } catch(IOException e) {
+        }
+        
         JLabel title = new JLabel("<html>"
-        + "<p><font size=+4>MICE</font></p>"
-        + "</html>", JLabel.CENTER);
+          + "<br/><p><font size=+4>MICE</font></p>"
+          + "</html>", JLabel.CENTER);
         about.add(title);
 
-        JLabel info = new JLabel("<html>"
-            + "<p>Version 0.2</p>"
-            + "Icons and logo created by Freepik - Flaticon"
-            + "<p>https://www.flaticon.com/free-icons/save</p>"
-            + "<p>https://www.flaticon.com/free-icons/open-folder</p>"
-            + "<p>https://www.flaticon.com/free-icons/ice-cream</p>"
-            + "<p>https://www.flaticon.com/free-icons/sprinkles</p>" 
-            + "<p>https://www.flaticon.com/free-icons/scoop</p>"
+        JLabel subTitle = new JLabel("<html>"
+          + "<br/><p><font size=+1>Mavs Ice Cream Emporium</font></p>"
+          + "</html>", JLabel.CENTER);
+        about.add(subTitle);
 
-            + "</html>", JLabel.CENTER);
-        about.add(info);
+        JLabel artists = new JLabel("<html>"
+        + "<p>Version 0.2</p>"
+        + "Icons and logo created by Freepik - Flaticon"
+        + "<p>https://www.flaticon.com/free-icons/save</p>"
+        + "<p>https://www.flaticon.com/free-icons/open-folder</p>"
+        + "<p>https://www.flaticon.com/free-icons/ice-cream</p>"
+        + "<p>https://www.flaticon.com/free-icons/sprinkles</p>" 
+        + "<p>https://www.flaticon.com/free-icons/scoop</p>"
+        + "</html>", JLabel.CENTER);
+        about.add(artists);
 
         JPanel panel = new JPanel();
         JButton ok = new JButton("OK");
         ok.addActionListener(event -> about.setVisible(false));
         panel.add(ok);
         about.add(panel);
-
+        
         about.add(Box.createVerticalStrut(10));
-
+        
         about.pack();
         about.setVisible(true);
     }
