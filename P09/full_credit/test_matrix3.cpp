@@ -3,7 +3,7 @@
 // This program tests the Matrix3 constructor, get method, 
 // and the overloaded <<, >>, and + operators
 
-#include "matrix3.h"
+#include "Matrix3.h"
 #include <sstream>
 #include <iostream>
 // It would simplify things if you overloaded the == operator! :-)
