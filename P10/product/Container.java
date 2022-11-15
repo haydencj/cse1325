@@ -23,6 +23,10 @@ public class Container{
         out.write("" + maxScoops + '\n');
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
     private String name;
     private String description;
     private int maxScoops;
