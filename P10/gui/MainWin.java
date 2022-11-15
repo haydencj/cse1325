@@ -146,7 +146,7 @@ public class MainWin extends JFrame {
             onCreateOrderButton.addActionListener(event -> onCreateOrderClick());
 
         JButton onCreateContainerButton = new JButton();
-            //seticon
+            onCreateContainerButton.setIcon(new ImageIcon("images/container_plain.png"));
             onCreateContainerButton.setActionCommand("Create container");
             onCreateContainerButton.setToolTipText("Create container");
             toolbar.add(onCreateContainerButton);
@@ -184,7 +184,7 @@ public class MainWin extends JFrame {
             onViewOrderButton.addActionListener(event -> view(Screen.ORDERS));
 
         JButton onViewContainerButton = new JButton();
-            //onViewMXButton.setIcon(new ImageIcon("images/sprinkles-color.png"));
+            onViewContainerButton.setIcon(new ImageIcon("images/container_color.png"));
             onViewContainerButton.setActionCommand("View containers");
             onViewContainerButton.setToolTipText("View containers");
             toolbar.add(onViewContainerButton);
@@ -367,6 +367,7 @@ public class MainWin extends JFrame {
         + "<p>https://www.flaticon.com/free-icons/ice-cream</p>"
         + "<p>https://www.flaticon.com/free-icons/sprinkles</p>" 
         + "<p>https://www.flaticon.com/free-icons/scoop</p>"
+        + "<p>https://www.flaticon.com/free-icons/stock</p>"
         + "</html>", JLabel.CENTER);
         about.add(artists);
 
