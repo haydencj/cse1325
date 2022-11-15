@@ -10,20 +10,17 @@ public class Scoop{
         this.mixins = new ArrayList<>();
     }
 
-    public Scoop(BufferedReader in) throws IOException {
-        flavor = new IceCreamFlavor(in);
-        int size = Integer.parseInt(in.readLine());
-        for(int i = 0; i<size; i++){
-            mixins.add(new MixIn(in));
-        }
+    public Scoop(BufferedReader br) throws IOException {
+        this.flavor = new IceCreamFlavor(br);
+        this.mixins = new ArrayList<>();
+        int numMixIns = Integer.parseInt(br.readLine());
+        while(numMixIns-- > 0) mixins.add(new MixIn(br));
     }
 
-    public void save(BufferedWriter out) throws IOException {
-        flavor.save(out);
-        out.write("" + mixins.size() + '\n');
-        for(MixIn mx : mixins) {
-            mx.save(out);
-        }
+    public void save(BufferedWriter bw) throws IOException {
+        flavor.save(bw);
+        bw.write("" + mixins.size() + '\n');
+        for(MixIn mi : mixins) mi.save(bw);
     }
 
     public void addMixIn(MixIn mixin){

@@ -1,77 +1,88 @@
 package emporium;
-import java.util.ArrayList;
+
+import product.Container;
+import product.IceCreamFlavor;
+import product.MixInFlavor;
+import product.Scoop;
+import product.Order;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import product.IceCreamFlavor;
-import product.MixInFlavor;
-import product.Scoop;
+import java.util.ArrayList;
+
+/***************************************************************************************
+*    Title: Emporium
+*    Author: George Rice
+*    Date: 11/14/2022
+*    Code version: 1.0
+*    Availability: https://github.com/prof-rice/cse1325-prof/blob/main/P07/emporium/Emporium.java
+*
+***************************************************************************************/
 
 public class Emporium {
-    public Emporium() {
-
-    }
-
-    public Emporium(BufferedReader in) throws IOException{
-        int mxSize = Integer.parseInt(in.readLine());
-        for(int i = 0; i<mxSize; i++){
-            mixInFlavors.add(new MixInFlavor(in));
-        }
-
-        int icSize = Integer.parseInt(in.readLine());
-        for(int i = 0; i<icSize; i++){
-            iceCreamFlavors.add(new IceCreamFlavor(in));
-        }
-
-        int scpSize = Integer.parseInt(in.readLine());
-        for(int i = 0; i<scpSize; i++){
-            scoops.add(new Scoop(in));
-        }
-    }
-
-    public void save(BufferedWriter out) throws IOException{
-        out.write("" + mixInFlavors.size() + '\n');
-        for(MixInFlavor mx : mixInFlavors) {
-            mx.save(out);
-        }
-
-        out.write("" + iceCreamFlavors.size() + '\n');
-        for(IceCreamFlavor ic : iceCreamFlavors) {
-            ic.save(out);
-        }
-
-        out.write("" + scoops.size() + '\n');
-        for(Scoop s : scoops) {
-            s.save(out);
-        }
-    }
+    public Emporium() { }
     
+    public Emporium(BufferedReader br) throws IOException { 
+        int size = Integer.parseInt(br.readLine());
+        while(size-- > 0) mixInFlavors.add(new MixInFlavor(br));
+
+        size = Integer.parseInt(br.readLine());
+        while(size-- > 0) iceCreamFlavors.add(new IceCreamFlavor(br));
+
+        size = Integer.parseInt(br.readLine());
+        while(size-- > 0) containers.add(new Container(br));
+
+        size = Integer.parseInt(br.readLine());
+        while(size-- > 0) orders.add(new Order(br));
+    }    
+    public void save(BufferedWriter bw) throws IOException {
+        bw.write("" + mixInFlavors.size() + '\n');
+        for(MixInFlavor mif : mixInFlavors) mif.save(bw);
+
+        bw.write("" + iceCreamFlavors.size() + '\n');
+        for(IceCreamFlavor icf : iceCreamFlavors) icf.save(bw);
+
+        bw.write("" + containers.size() + '\n');
+        for(Container c : containers) c.save(bw);
+
+        bw.write("" + orders.size() + '\n');
+        for(Order o : orders) o.save(bw);
+    }
+
     public void addMixInFlavor(MixInFlavor flavor) {
         mixInFlavors.add(flavor);
     }
-
     public void addIceCreamFlavor(IceCreamFlavor flavor) {
         iceCreamFlavors.add(flavor);
     }
 
-    public void addScoop(Scoop scoop) {
-        scoops.add(scoop);
+    public void addContainer(Container container) {
+        containers.add(container);
     }
 
-    public Object[] mixInFlavors() {
-        return mixInFlavors.toArray();
+    public void addOrder(Order order) {
+        orders.add(order);
     }
 
     public Object[] iceCreamFlavors() {
-        return iceCreamFlavors.toArray();
+        return this.iceCreamFlavors.toArray();
+    }
+    public Object[] mixInFlavors() {
+        return this.mixInFlavors.toArray();
     }
 
-    public Object[] scoops() {
-        return scoops.toArray();
+    public Object[] containers() {
+        return this.containers.toArray();
     }
 
-    private ArrayList<MixInFlavor> mixInFlavors = new ArrayList<>();;
-    private ArrayList<IceCreamFlavor> iceCreamFlavors = new ArrayList<>();;
-    private ArrayList<Scoop> scoops = new ArrayList<>();;
+    public Object[] orders() {
+        return this.orders.toArray();
+    }
+
+    private ArrayList<MixInFlavor> mixInFlavors = new ArrayList<>();
+    private ArrayList<IceCreamFlavor> iceCreamFlavors = new ArrayList<>();
+    private ArrayList<Container> containers = new ArrayList<>();
+    private ArrayList<Order> orders = new ArrayList<>();
 }

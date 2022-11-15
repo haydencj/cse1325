@@ -13,15 +13,15 @@ public class Item{
     }
 
     public Item(BufferedReader in) throws IOException{
-        name = in.readLine();
-        description = in.readLine();
-        cost = Integer.parseInt(in.readLine());
-        price = Integer.parseInt(in.readLine());
+        this.name = in.readLine();
+        this.description = in.readLine();
+        this.cost = Integer.parseInt(in.readLine());
+        this.price = Integer.parseInt(in.readLine());
     }
 
     public void save(BufferedWriter out) throws IOException{
-        out.write("" + name + '\n');
-        out.write("" + description + '\n');
+        out.write(name + '\n');
+        out.write(description + '\n');
         out.write("" + cost + '\n');
         out.write("" + price + '\n');
     }

@@ -11,6 +11,8 @@ package gui;
 
 import emporium.Emporium;
 import product.*;
+import product.Container;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -50,7 +52,9 @@ public class MainWin extends JFrame {
         JMenu create = new JMenu("Create");
         JMenuItem icFlavorCreate = new JMenuItem("Ice Cream Flavor");
         JMenuItem mxFlavorCreate= new JMenuItem("Mix In Flavor");
-        JMenuItem sFlavorCreate = new JMenuItem("Scoop");
+        JMenuItem orderCreate = new JMenuItem("Order");
+        JMenuItem containerCreate = new JMenuItem("Container");
+        //JMenuItem sFlavorCreate = new JMenuItem("Scoop");
 
         JMenu help = new JMenu("Help");
         JMenuItem about = new JMenuItem("About");
@@ -59,11 +63,13 @@ public class MainWin extends JFrame {
 
         icFlavorView.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
         mxFlavorView.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
-        sFlavorView.addActionListener(event -> view(Screen.SCOOPS));
+        //sFlavorView.addActionListener(event -> view(Screen.SCOOPS));
 
         icFlavorCreate.addActionListener(event -> onCreateIceCreamFlavorClick());
         mxFlavorCreate.addActionListener(event -> onCreateMixInFlavorClick());
-        sFlavorCreate.addActionListener(event -> onCreateScoopClick());
+        orderCreate.addActionListener(event -> onCreateOrderClick());
+        containerCreate.addActionListener(event -> onCreateContainerClick());
+        //sFlavorCreate.addActionListener(event -> onCreateScoopClick());
 
         about.addActionListener(event -> onAboutClick());
 
@@ -75,7 +81,9 @@ public class MainWin extends JFrame {
 
         create.add(icFlavorCreate);
         create.add(mxFlavorCreate);
-        create.add(sFlavorCreate);
+        create.add(orderCreate);
+        create.add(containerCreate);
+        //create.add(sFlavorCreate);
 
         help.add(about);
 
@@ -130,12 +138,26 @@ public class MainWin extends JFrame {
             toolbar.add(onCreateMXButton);
             onCreateMXButton.addActionListener(event -> onCreateMixInFlavorClick());
 
-        JButton onCreateScpButton = new JButton();
-            onCreateScpButton.setIcon(new ImageIcon("images/scoop.png"));
-            onCreateScpButton.setActionCommand("Create scoop");
-            onCreateScpButton.setToolTipText("Create scoop");
-            toolbar.add(onCreateScpButton);
-            onCreateScpButton.addActionListener(event -> onCreateScoopClick());
+        JButton onCreateOrderButton = new JButton();
+            onCreateOrderButton.setIcon(new ImageIcon("images/scoop.png"));
+            onCreateOrderButton.setActionCommand("Create order");
+            onCreateOrderButton.setToolTipText("Create order");
+            toolbar.add(onCreateOrderButton);
+            onCreateOrderButton.addActionListener(event -> onCreateOrderClick());
+
+        JButton onCreateContainerButton = new JButton();
+            //seticon
+            onCreateContainerButton.setActionCommand("Create container");
+            onCreateContainerButton.setToolTipText("Create container");
+            toolbar.add(onCreateContainerButton);
+            onCreateContainerButton.addActionListener(event -> onCreateContainerClick());
+
+        // JButton onCreateScpButton = new JButton();
+        //     onCreateScpButton.setIcon(new ImageIcon("images/scoop.png"));
+        //     onCreateScpButton.setActionCommand("Create scoop");
+        //     onCreateScpButton.setToolTipText("Create scoop");
+        //     toolbar.add(onCreateScpButton);
+        //     onCreateScpButton.addActionListener(event -> onCreateScoopClick());
 
         toolbar.add(Box.createHorizontalStrut(25));
 
@@ -154,13 +176,26 @@ public class MainWin extends JFrame {
             toolbar.add(onViewMXButton);
             onViewMXButton.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
 
-        JButton onViewScpButton = new JButton();
-            onViewScpButton.setIcon(new ImageIcon("images/scoop-color.png"));
-            onViewScpButton.setActionCommand("View scoop");
-            onViewScpButton.setToolTipText("View scoop");
-            toolbar.add(onViewScpButton);
-            onViewScpButton.addActionListener(event -> view(Screen.SCOOPS));
+        JButton onViewOrderButton = new JButton();
+            onViewOrderButton.setIcon(new ImageIcon("images/scoop-color.png"));
+            onViewOrderButton.setActionCommand("View orders");
+            onViewOrderButton.setToolTipText("View orders");
+            toolbar.add(onViewOrderButton);
+            onViewOrderButton.addActionListener(event -> view(Screen.ORDERS));
 
+        JButton onViewContainerButton = new JButton();
+            //onViewMXButton.setIcon(new ImageIcon("images/sprinkles-color.png"));
+            onViewContainerButton.setActionCommand("View containers");
+            onViewContainerButton.setToolTipText("View containers");
+            toolbar.add(onViewContainerButton);
+            onViewContainerButton.addActionListener(event -> view(Screen.CONTAINERS));
+
+    // JButton onViewScpButton = new JButton();
+    //     onViewScpButton.setIcon(new ImageIcon("images/scoop-color.png"));
+    //     onViewScpButton.setActionCommand("View scoop");
+    //     onViewScpButton.setToolTipText("View scoop");
+    //     toolbar.add(onViewScpButton);
+    //     onViewScpButton.addActionListener(event -> view(Screen.SCOOPS));
 
         getContentPane().add(toolbar, BorderLayout.PAGE_START);
         setVisible(true);
@@ -178,7 +213,7 @@ public class MainWin extends JFrame {
             
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 emporium = new Emporium(br);                   
-                view(Screen.SCOOPS);                         // Update the user interface
+                view(Screen.ORDERS);                         // Update the user interface
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Unable to open " + filename + '\n' + e, 
                     "Failed", JOptionPane.ERROR_MESSAGE); 
@@ -214,6 +249,45 @@ public class MainWin extends JFrame {
         System.exit(0);
     }
 
+    public void onCreateContainerClick() {
+        String name = JOptionPane.showInputDialog(this, "Enter a container.", "Create Container", JOptionPane.QUESTION_MESSAGE);
+        String description = JOptionPane.showInputDialog(this, "Enter a description.", "Create Container", JOptionPane.QUESTION_MESSAGE);
+        String maxScoops = JOptionPane.showInputDialog(this, "Enter the max scoops.", "Create Container", JOptionPane.QUESTION_MESSAGE);
+
+        emporium.addContainer(new Container(name, description, Integer.parseInt(maxScoops)));
+        view(Screen.CONTAINERS);
+    }
+
+    public void onCreateOrderClick() {
+        Order order = new Order();
+
+        while(true) {
+            Serving serving = onCreateServing();
+            if(serving == null) break;
+            order.addServing(serving);
+        }
+
+        emporium.addOrder(order);
+        view(Screen.ORDERS);         
+    }
+
+    public Serving onCreateServing() {
+        Serving serving;
+        Scoop scoop;
+
+        Container container = (Container) JOptionPane.showInputDialog(this, "Select container", "Make a serving", JOptionPane.QUESTION_MESSAGE, null, emporium.containers(), null);
+        if(container == null){
+            display.setText("Invalid response");
+            //return;
+        }
+
+        serving = new Serving(container);
+        scoop = onCreateScoopClick(); //creating scoops and toppings
+
+        serving.addScoop(scoop); //add scoop to serving
+        return serving;
+    }
+
     public void onCreateIceCreamFlavorClick(){
         String flavor = JOptionPane.showInputDialog(this, "Enter an ice cream flavor.", "Create Ice Cream", JOptionPane.QUESTION_MESSAGE);
         String description = JOptionPane.showInputDialog(this, "Enter a description.", "Create Ice Cream", JOptionPane.QUESTION_MESSAGE);
@@ -234,7 +308,7 @@ public class MainWin extends JFrame {
         view(Screen.MIX_IN_FLAVORS);
     }
 
-    public void onCreateScoopClick(){
+    public Scoop onCreateScoopClick(){
         Scoop scoop;
         Object[] icFlavors = emporium.iceCreamFlavors();
         Object[] mxFlavors = emporium.mixInFlavors();
@@ -243,7 +317,7 @@ public class MainWin extends JFrame {
         IceCreamFlavor icChoice = (IceCreamFlavor) JOptionPane.showInputDialog(this, "Select Ice Cream Flavor", "Make a scoop", JOptionPane.QUESTION_MESSAGE, null, icFlavors, icFlavors[0]);
         if(icChoice == null){
             display.setText("Invalid response");
-            return;
+            return null;
         }
 
         scoop = new Scoop(icChoice);
@@ -259,8 +333,7 @@ public class MainWin extends JFrame {
             mxAmountChoice = (MixInAmount) JOptionPane.showInputDialog(this, "Select A Mix In Amount", "Make a scoop", JOptionPane.QUESTION_MESSAGE, null, mxAmount, mxAmount[0]);
         }
 
-        emporium.addScoop(scoop);
-        view(Screen.SCOOPS);
+        return scoop;
     }
 
     public void onAboutClick(){
@@ -322,9 +395,15 @@ public class MainWin extends JFrame {
             }
         }
 
-        else if(screen.equals(Screen.SCOOPS)){
-            for(Object s: emporium.scoops()){
-                display.setText(s.toString());
+        else if(screen.equals(Screen.CONTAINERS)){
+            for(Object c: emporium.containers()){
+                display.setText(c.toString());
+            }
+        }
+
+        else if(screen.equals(Screen.ORDERS)){
+            for(Object o: emporium.orders()){
+                display.setText(o.toString());
             }
         }
     }
