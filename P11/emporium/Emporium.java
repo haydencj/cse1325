@@ -90,11 +90,9 @@ public class Emporium {
     public Object[] orders() {
         return this.orders.toArray();
     }
-
     public Object[] customers() {
         return this.customers.toArray();
     }
-
     public Object[] favoriteServings(Customer customer) {
         return favoriteServings.get(customer);
     }
