@@ -7,6 +7,8 @@ import product.MixInAmount;
 import product.MixIn;
 import product.Container;
 import product.Order;
+import product.Serving;
+import person.Customer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -38,6 +40,11 @@ public class Emporium {
 
         size = Integer.parseInt(br.readLine());
         while(size-- > 0) orders.add(new Order(br));
+
+        size = Integer.parseInt(in.readLine());
+        for(int i = 0; i < size; ++i) {
+            customers.add(new Customer(in));
+        }
     }    
     public void save(BufferedWriter bw) throws IOException {
         bw.write("" + mixInFlavors.size() + '\n');
@@ -78,8 +85,18 @@ public class Emporium {
         return this.orders.toArray();
     }
 
+    public Object[] customers() {
+        return this.customers.toArray();
+    }
+
+    public Object[] favoriteServings(Customer customer) {
+        return favoriteServings.get(customer);
+    }
+
     private ArrayList<MixInFlavor> mixInFlavors = new ArrayList<>();
     private ArrayList<IceCreamFlavor> iceCreamFlavors = new ArrayList<>();
     private ArrayList<Container> containers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Customer> customers = new ArrayList<>();
+    private MultiMap<Customer, Serving> favoriteServings = new MultiMap<>();
 }

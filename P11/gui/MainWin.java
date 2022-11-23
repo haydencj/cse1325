@@ -27,6 +27,9 @@ import product.Scoop;
 import product.Serving;
 import product.Order;
 
+import person.Customer;
+import person.Person;
+
 import emporium.Emporium;
 
 import javax.swing.JFileChooser;
@@ -64,16 +67,21 @@ public class MainWin extends JFrame {
                   save            = new JMenuItem("Save");
                   saveAs          = new JMenuItem("Save As");
         JMenuItem quit            = new JMenuItem("Quit");
+
         JMenu     view            = new JMenu("View");
         JMenuItem viewContainer   = new JMenuItem("Containers");
+        JMenuItem viewCustomers   = new JMenuItem("Customers");
         JMenuItem viewICF         = new JMenuItem("Ice Cream Flavors");
         JMenuItem viewMIF         = new JMenuItem("Mix In Flavors");
         JMenuItem viewOrder       = new JMenuItem("Orders");
+
         JMenu     create          = new JMenu("Create");
         JMenuItem createContainer = new JMenuItem("Container");
+        JMenuItem createCustomer  = new JMenuItem("Customer");
         JMenuItem createICF       = new JMenuItem("Ice Cream Flavor");
         JMenuItem createMIF       = new JMenuItem("Mix In Flavor");
                   createOrder     = new JMenuItem("Order");
+
         JMenu     help            = new JMenu("Help");
         JMenuItem about           = new JMenuItem("About");
         
@@ -81,14 +89,17 @@ public class MainWin extends JFrame {
         save           .addActionListener(event -> onSaveClick());
         saveAs         .addActionListener(event -> onSaveAsClick());
         quit           .addActionListener(event -> onQuitClick());
+
         viewContainer  .addActionListener(event -> view(Screen.CONTAINERS));
         viewICF        .addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
         viewMIF        .addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
         viewOrder      .addActionListener(event -> view(Screen.ORDERS));
+        
         createContainer.addActionListener(event -> onCreateContainerClick());
         createICF      .addActionListener(event -> onCreateIceCreamFlavorClick());
         createMIF      .addActionListener(event -> onCreateMixInFlavorClick());
         createOrder    .addActionListener(event -> onCreateOrderClick());
+        createCustomer .addActionListener(event -> onCreateCustomerClick());
         about          .addActionListener(event -> onAboutClick());
 
         file.add(open);
@@ -160,6 +171,13 @@ public class MainWin extends JFrame {
           toolbar.add(createMixInFlavorButton);
           createMixInFlavorButton.addActionListener(event -> onCreateMixInFlavorClick());
 
+        JButton createCustomerButton = new JButton("Create Customer");
+          createCustomerButton.setBorder(BorderFactory.createEmptyBorder());
+          createCustomerButton.setActionCommand("New Customer");
+          createCustomerButton.setToolTipText("Create New Customer");
+          toolbar.add(createCustomerButton);
+          createCustomerButton.addActionListener(event -> onCreateCustomerClick());
+
         createOrderButton  = new JButton(new ImageIcon("gui/createOrdersButton.png"));
           createOrderButton.setActionCommand("New order");
           createOrderButton.setToolTipText("Create new order");
@@ -193,6 +211,12 @@ public class MainWin extends JFrame {
           toolbar.add(viewOrdersButton);
           viewOrdersButton.addActionListener(event -> view(Screen.ORDERS));
 
+        JButton viewCustomerButton = new JButton("View Customer");
+          viewCustomerButton.setBorder(BorderFactory.createEmptyBorder());
+          viewCustomerButton.setActionCommand("View Customers");
+          viewCustomerButton.setToolTipText("View Customers");
+          toolbar.add(viewCustomerButton);
+
         getContentPane().add(toolbar, BorderLayout.PAGE_START);
         
         // /////////////////////////// ////////////////////////////////////////////
@@ -222,6 +246,29 @@ public class MainWin extends JFrame {
     // Listeners
     protected void onQuitClick() {System.exit(0);}   // Exit the game
     
+    protected void onCreateCustomerClick() {
+        Customer customer = null;
+
+        try {
+            JLabel name = new JLabel("<html>Name</html>");
+            JTextField names = new JTextField(20);
+            JLabel phone = new JLabel("<html>Phone</html>");
+            JTextField phones = new JTextField(20);
+
+            Object[] objects = {name,names,phone,phones};
+
+            int button = JOptionPane.showConfirmDialog(this,objects,"New Customer",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+            if(button == JOptionPane.OK_OPTION) {
+                customer = new Customer(names.getText(),phones.getText());
+                emporium.addCustomer(customer);
+            }
+
+        }
+        catch (Exception e) {
+            System.err.print("onCreateCustomer exception: " + e);
+        }
+    }
 
     protected void onCreateContainerClick() {
         try {
