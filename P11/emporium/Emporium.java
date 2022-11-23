@@ -1,10 +1,7 @@
 package emporium;
 
-import product.Item;
 import product.IceCreamFlavor;
 import product.MixInFlavor;
-import product.MixInAmount;
-import product.MixIn;
 import product.Container;
 import product.Order;
 import product.Serving;
@@ -58,6 +55,9 @@ public class Emporium {
 
         bw.write("" + orders.size() + '\n');
         for(Order o : orders) o.save(bw);
+
+        bw.write("" + customers.size() + '\n');
+        for(Customer c : customers) c.save(bw);
     }
 
     public void addMixInFlavor(MixInFlavor flavor) {
@@ -73,7 +73,7 @@ public class Emporium {
         orders.add(order);
         Customer customer = order.getCustomer();
 
-        for(var s : orders.servings()) favoriteServings.put(customer, (Serving) s);
+        for(var s : order.servings()) favoriteServings.put(customer, (Serving) s);
     }
     public void addCustomer(Customer customer) {
         customers.add(customer);
