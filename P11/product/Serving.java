@@ -46,6 +46,15 @@ public class Serving {
     public void addScoop(Scoop scoop) {
         scoops.add(scoop);
     }
+
+    public int price() {
+        int total = 0;
+        for(MixIn m : toppings) total += m.price();
+        for(Scoop s : scoops) total += s.price();
+
+        return total;
+    }
+    
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(container.toString());

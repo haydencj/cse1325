@@ -38,6 +38,15 @@ public class Scoop {
     public void addMixIn(MixIn mixin) {
         mixins.add(mixin);
     }
+
+    public int price() {
+        int total = 0;
+        for(MixIn m : mixins) total+=m.price();
+        total+=flavor.price();
+
+        return total;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(flavor.toString());

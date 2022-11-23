@@ -35,6 +35,14 @@ public class Order {
     public void addServing(Serving serving) {
         servings.add(serving);
     }
+
+    public int price() {
+        int total = 0;
+        for(Serving s : servings) total+=s.price();
+
+        return total;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

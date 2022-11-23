@@ -28,6 +28,10 @@ public class MixIn {
         flavor.save(bw);
     }
     
+    public int price() {
+        return flavor.price();
+    }
+
     @Override
     public String toString() {
 //        return flavor.toString() + ((amount != MixInAmount.Normal)
