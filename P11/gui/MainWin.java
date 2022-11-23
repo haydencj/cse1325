@@ -10,14 +10,8 @@ package gui;
 ***************************************************************************************/
 
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
 import java.io.File;
-import java.io.IOException;
 import javax.swing.*;
-import javax.imageio.ImageIO;
-
-import product.Item;
 import product.IceCreamFlavor;
 import product.MixInFlavor;
 import product.MixInAmount;
@@ -28,24 +22,19 @@ import product.Serving;
 import product.Order;
 
 import person.Customer;
-import person.Person;
-
 import emporium.Emporium;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class MainWin extends JFrame {
 
-    private final String NAME = "MICE";
     private final String EXTENSION = "mice";
     private final String VERSION = "0.4";
     private final String FILE_VERSION = "2.0";
@@ -106,14 +95,19 @@ public class MainWin extends JFrame {
         file.add(save);
         file.add(saveAs);
         file.add(quit);
+
         view.add(viewContainer);
         view.add(viewICF);
         view.add(viewMIF);
         view.add(viewOrder);
+        view.add(viewCustomers);
+
         create.add(createContainer);
         create.add(createICF);
         create.add(createMIF);
         create.add(createOrder);
+        create.add(createCustomer);
+
         help.add(about);
         
         menubar.add(file);
@@ -390,10 +384,11 @@ public class MainWin extends JFrame {
     }
     protected void onCreateOrderClick() {
         Order order = null;
+        Customer customer = null;
         try {
             Serving serving = null;
-            while((serving = onCreateServing()) != null) {
-                if(order == null) order = new Order();
+            while((serving = onCreateServing(customer)) != null) {
+                if(order == null) order = new Order(customer);
                 order.addServing(serving);
                 int result = JOptionPane.showConfirmDialog(
                     this, order, "Add Another Serving?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -407,9 +402,27 @@ public class MainWin extends JFrame {
             System.err.println("onCreateScoop exception: " + e);
         }
     }
-    protected Serving onCreateServing() {
+    protected Serving onCreateServing(Customer customer) {
         Serving serving = null;
         try {
+            Object[] favoriteServings = emporium.favoriteServings(customer);
+
+            if(favoriteServings.length != 0) {
+                JLabel makeSelection = new JLabel("Make a Selection");
+                JComboBox<Object> previousServings = new JComboBox<>(favoriteServings);
+                Object[] objects = {makeSelection,previousServings};
+                
+                int button = JOptionPane.showConfirmDialog(this,objects,"Select Favorite Serving?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+                if (button == JOptionPane.CANCEL_OPTION) {
+                    return null;
+                } 
+                if (button == JOptionPane.YES_OPTION) {
+                    return (Serving) previousServings.getSelectedItem(); 
+                }
+
+            }
+
             Container container = (Container) JOptionPane.showInputDialog(this, "Container?", "New Container", JOptionPane.QUESTION_MESSAGE, null, emporium.containers(), null);
             if(container != null) {
                 serving = new Serving(container);

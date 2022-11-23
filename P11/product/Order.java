@@ -8,6 +8,7 @@ package product;
 *    Availability: https://github.com/prof-rice/cse1325-prof/tree/main/P11
 *
 ***************************************************************************************/
+import person.Customer;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class Order {
-    public Order() {
+    public Order(Customer customer) {
+        this.customer = customer;
         this.servings = new ArrayList<>();
     }
     
@@ -31,9 +33,16 @@ public class Order {
         for(Serving s : servings) s.save(bw);
     }
 
-    
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
     public void addServing(Serving serving) {
         servings.add(serving);
+    }
+
+    public Object[] servings() {
+        return servings.toArray();
     }
 
     public int price() {
@@ -47,13 +56,17 @@ public class Order {
     public String toString() {
         StringBuilder result = new StringBuilder();
         String separator = "";
+
         if(servings.size() > 0) {
+            result.append("Customer: " + customer.toString());
             for(Serving s : servings) {
                 result.append(separator + s.toString());
-                separator = "<br/>";
+                separator = ". ";
             }
+            result.append("<br/>" + "Order Total: " + price());
         }
         return result.toString();
     }
     private ArrayList<Serving> servings;
+    private Customer customer;
 }

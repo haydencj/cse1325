@@ -41,9 +41,9 @@ public class Emporium {
         size = Integer.parseInt(br.readLine());
         while(size-- > 0) orders.add(new Order(br));
 
-        size = Integer.parseInt(in.readLine());
+        size = Integer.parseInt(br.readLine());
         for(int i = 0; i < size; ++i) {
-            customers.add(new Customer(in));
+            customers.add(new Customer(br));
         }
     }    
     public void save(BufferedWriter bw) throws IOException {
@@ -71,6 +71,12 @@ public class Emporium {
     }
     public void addOrder(Order order) {
         orders.add(order);
+        Customer customer = order.getCustomer();
+
+        for(var s : orders.servings()) favoriteServings.put(customer, (Serving) s);
+    }
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
     }
     public Object[] iceCreamFlavors() {
         return this.iceCreamFlavors.toArray();
